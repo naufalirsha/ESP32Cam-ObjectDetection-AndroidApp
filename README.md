@@ -13,7 +13,7 @@ Proyek ini adalah sistem deteksi objek real-time yang dirancang sebagai alat ban
 ## 🛠️ Tech Stack
 ### Hardware
 - **ESP32-CAM**: Sebagai modul kamera dan server streaming.
-- **Android Smartphone**: Perangkat pemroses (Tested on Samsung S24 FE & A24).
+- **Android Smartphone**: Perangkat pemroses (Tested on Samsung S24 FE).
 
 ### Software & Libraries
 - **Language**: Kotlin (Android), C++ (ESP32).
@@ -38,7 +38,7 @@ Aplikasi dilengkapi dengan terminal internal untuk memantau performa sistem:
 
 ## ⚙️ Cara Menjalankan
 1. **Setup ESP32-CAM**:
-   - Flash program MJPEG Streamer ke ESP32-CAM.
+   - Flash ESP32-CAM IDE Code ke ESP32-CAM.
    - Pastikan ESP32-CAM dan HP Android berada di **jaringan WiFi yang sama**.
 2. **Konfigurasi IP**:
    - Buka `MainActivity.kt`.
@@ -47,7 +47,3 @@ Aplikasi dilengkapi dengan terminal internal untuk memantau performa sistem:
    - Build proyek menggunakan **Android Studio**.
    - Install `.apk` ke perangkat Android.
    - Klik **Connect** pada aplikasi untuk memulai streaming dan deteksi.
-
-## 📊 Analisis Performa (Profiling)
-Untuk kebutuhan laporan TA, sistem mengirimkan log khusus ke Android Studio Logcat.
-Gunakan filter berikut pada Logcat:
