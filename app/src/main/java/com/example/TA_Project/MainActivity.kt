@@ -362,8 +362,25 @@ fun ObjectDetectionScreen(tflite: Interpreter?, labels: List<String>, streamingJ
             confidenceThreshold = confidenceThreshold,
             onThresholdChange = { confidenceThreshold = it },
             onConnect = onConnect,
-            onDisconnect = { streamingJob?.cancel(); onStreamingJobChange(null); connectionStatus = ConnectionStatus.DISCONNECTED; displayedBitmap = null; logList = emptyList() },
-            onChangeModel = onChangeModel,
+            onDisconnect = {
+                scope.launch {
+                    streamingJob?.cancelAndJoin() // Tunggu sampai benar-benar mati
+                    onStreamingJobChange(null)
+                    connectionStatus = ConnectionStatus.DISCONNECTED
+                    displayedBitmap = null
+                    logList = emptyList()
+                    frameCounter = 1200 // Reset counter juga
+                }
+            },
+            onChangeModel = {
+                scope.launch {
+                    // Matikan streaming dulu sebelum ganti model
+                    streamingJob?.cancelAndJoin()
+                    onStreamingJobChange(null)
+                    connectionStatus = ConnectionStatus.DISCONNECTED
+                    onChangeModel() // Panggil picker
+                }
+            },
             logList = logList,
             isPaused = isPaused,
             onPauseChange = { isPaused = it }
